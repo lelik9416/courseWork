@@ -188,10 +188,10 @@ class Windows(QDialog):
         print(self.got_data)
 
         #with self.got_data:
-        data_keys = self.got_data.variables.keys()
+        #data_keys = self.got_data.variables.keys()
         
-        text.setLabelText(str_param)
-        return  text.show()
+        #text.setLabelText(str_param)
+        #return  text.show()
         
 
 
