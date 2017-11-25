@@ -11,8 +11,8 @@ from netCDF4 import Dataset
 
 
 
-class App(QMainWindow):
-    data = None
+class App(QMainWindow):    
+    
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -54,9 +54,8 @@ class App(QMainWindow):
         f = Dataset(fileName, "r", format="NETCDF4")
         
         with f:
-            data = f
+           self.data = f
         
-        return data
 
     
     def _initSingnals(self):
@@ -75,16 +74,16 @@ class App(QMainWindow):
             
 
 
-    @classmethod
-    def getData(cls):
+    @staticmethod
+    def getData(self):
         
         #f = Dataset(self.openFileNameDialog.fileName, "r", format="NETCDF4")
         
         #with f:
             #cls.data = f.variables
         
-        print(cls.data)
-        return cls.data
+        print(self.data)
+        return self.data
 
 
     def closeEvent(self, event):
@@ -175,13 +174,15 @@ class Windows(QDialog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        self.data = None
+        
         
     def eventShowLists(self):
         self.data_keys_for_buts = []
         
         text = QTextEdit()
         
-        self.got_data = App.getData()
+        self.got_data = App().getData(self)
 
         print(self.got_data)
 
