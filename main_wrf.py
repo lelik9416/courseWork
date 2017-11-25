@@ -12,8 +12,7 @@ from netCDF4 import Dataset
 
 
 class App(QMainWindow):    
-    
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
@@ -42,6 +41,7 @@ class App(QMainWindow):
         
         self.stack.addWidget(self.btn)
         self.stack.setCurrentWidget(self.btn)
+
         
         self.show()
         
@@ -55,6 +55,7 @@ class App(QMainWindow):
         
         with f:
            self.data = f
+
         
 
     
@@ -82,7 +83,7 @@ class App(QMainWindow):
         #with f:
             #cls.data = f.variables
         
-        print(self.data)
+        #print(self.data)
         return self.data
 
 
@@ -173,7 +174,7 @@ class Buttons(QWidget):
 class Windows(QDialog):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+                
         self.data = None
         
         
