@@ -10,20 +10,6 @@ import sys
 from netCDF4 import Dataset
 
 
-"""
-def openFileNameDialog(self):    
-    options = QFileDialog.Options()
-    options |= QFileDialog.DontUseNativeDialog
-    fileName, _ = QFileDialog.getOpenFileName(self,"Input file", "","All Files (*);;Python Files (*.py)", options=options)
-
-    f = Dataset(fileName, "r", format="NETCDF4")
-        
-    with f:
-         data = f
-        
-        #self.onOpenFile.emit(f)
-"""
-
 
 class App(QMainWindow): 
        
@@ -70,6 +56,11 @@ class App(QMainWindow):
         
         with f:
             data = f
+            
+            windows = Windows(data)
+            
+            print(type(data))
+            
         
         
     
@@ -184,8 +175,6 @@ class Windows(QDialog):
         
         text = QTextEdit()
         
-        #self.got_data = App().getData(self)
-
         print(type(self.data))
 
         #with self.got_data:
