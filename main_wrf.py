@@ -5,13 +5,28 @@ from PyQt5.QtWidgets import (QApplication, QComboBox, QDialog,
         QDesktopWidget, QMessageBox, QStackedWidget)
         
 from PyQt5.QtGui import QIcon
-from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtCore import pyqtSlot, pyqtSignal
 import sys
 from netCDF4 import Dataset
 
 
+"""
+def openFileNameDialog(self):    
+    options = QFileDialog.Options()
+    options |= QFileDialog.DontUseNativeDialog
+    fileName, _ = QFileDialog.getOpenFileName(self,"Input file", "","All Files (*);;Python Files (*.py)", options=options)
 
-class App(QMainWindow):    
+    f = Dataset(fileName, "r", format="NETCDF4")
+        
+    with f:
+         data = f
+        
+        #self.onOpenFile.emit(f)
+"""
+
+
+class App(QMainWindow): 
+       
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -45,7 +60,7 @@ class App(QMainWindow):
         
         self.show()
         
- 
+    
     def openFileNameDialog(self):    
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
@@ -54,10 +69,9 @@ class App(QMainWindow):
         f = Dataset(fileName, "r", format="NETCDF4")
         
         with f:
-           self.data = f
-
+            data = f
         
-
+        
     
     def _initSingnals(self):
         self.btn.clicked.connect(self.onClick)
@@ -72,19 +86,6 @@ class App(QMainWindow):
             self.buttons = Buttons(self)
             self.stack.addWidget(self.buttons)
             self.stack.setCurrentWidget(self.buttons)
-            
-
-
-    @staticmethod
-    def getData(self):
-        
-        #f = Dataset(self.openFileNameDialog.fileName, "r", format="NETCDF4")
-        
-        #with f:
-            #cls.data = f.variables
-        
-        #print(self.data)
-        return self.data
 
 
     def closeEvent(self, event):
@@ -172,10 +173,10 @@ class Buttons(QWidget):
 
 
 class Windows(QDialog):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, data, *args, **kwargs):
         super().__init__(*args, **kwargs)
-                
-        self.data = None
+
+        self.data = data
         
         
     def eventShowLists(self):
@@ -183,9 +184,9 @@ class Windows(QDialog):
         
         text = QTextEdit()
         
-        self.got_data = App().getData(self)
+        #self.got_data = App().getData(self)
 
-        print(self.got_data)
+        print(type(self.data))
 
         #with self.got_data:
         #data_keys = self.got_data.variables.keys()
